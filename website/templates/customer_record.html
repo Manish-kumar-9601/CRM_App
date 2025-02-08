@@ -73,11 +73,11 @@
           </div>
         </div>
         <div class="utils d-flex   justify-content-between">
-          <a  href="{%  url 'home' %}" class="my-5 text-decoration-none  text-light " > 
+          <a  href="{%  url 'home' %}" class=" text-decoration-none  text-light " > 
  <button class="btn btn-dark " >  Back </button></a>
- <a   href="{%  url 'delete_customer_record' customer.id %}" class="my-5 text-decoration-none   border-0 " >
+ <a   href="{%  url 'delete_customer_record' customer.id %}" class="  text-decoration-none   border-0 " >
+   <a href="{% url 'update_record' customer.id %} " class="  text-decoration-none   border-0 "><button class="btn btn-primary" >update</button></a>
  <button class="border-0" >
-    
          <img src="https://th.bing.com/th/id/OIP.2AUPgOzs7WmircCxTuX5NwAAAA?rs=1&pid=ImgDetMain " alt="" width="32" height="32" >
         </button>
       </a>

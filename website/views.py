@@ -1,5 +1,5 @@
-from operator import add
-from django.shortcuts import render ,redirect # type: ignore
+
+from django.shortcuts import render, redirect, get_object_or_404# type: ignore
 from django.contrib.auth import login,logout,authenticate # type: ignore
 from django.contrib import messages # type: ignore
 
@@ -80,12 +80,36 @@ def delete_customer_record(request,pk):
     else:
         messages.success('Failed to delete to record')
         return redirect('home')
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Record
 
 def add_record(request):
     if request.user.is_authenticated:
+
+        if request.method == 'POST':
+
+            first = request.POST.get('first_name')
+            last = request.POST.get('last_name')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            address = request.POST.get('address')
+            country = request.POST.get('country')
+            city = request.POST.get('city')
+            state = request.POST.get('state')
+            zipcode = request.POST.get('zipcode')
+            if(first and last and phone and email and address and country and city and state and zipcode):
+                record = Record(first_name=first, last_name=last, email=email, phone=phone, address=address, country=country, city=city, state=state, zipcode=zipcode) 
+                print(record)
+                record.save()
+            messages.success(request, 'New record added successfully')
+            return redirect('home')
+        else:
+            messages.error(request, 'Failed to post details')
+            redirect('home')
+    return render(request, 'addRecord.html')
+
+
+def update_record(request, pk):
+    if request.user.is_authenticated:
+        current_record = get_object_or_404(Record, pk=pk)
 
         if request.method == 'POST':
             first = request.POST.get('first_name')
@@ -97,12 +121,24 @@ def add_record(request):
             city = request.POST.get('city')
             state = request.POST.get('state')
             zipcode = request.POST.get('zipcode')
-            record = Record(first_name=first, last_name=last, email=email, phone=phone, address=address, country=country, city=city, state=state, zipcode=zipcode)
-            print(record)
-            record.save()
-            messages.success(request, 'New record added successfully')
-            return redirect('home')
-        else:
-            messages.error(request, 'Failed to post details')
-            redirect('home')
-    return render(request, 'addRecord.html')
+            
+            if all([first, last, phone, email, address, country, city, state, zipcode]):
+                current_record.first_name = first
+                current_record.last_name = last
+                current_record.phone = phone
+                current_record.email = email
+                current_record.address = address
+                current_record.country = country
+                current_record.city = city
+                current_record.state = state
+                current_record.zipcode = zipcode
+                current_record.save()
+                messages.success(request, 'Record updated successfully')
+                return redirect('home')
+            else:
+                messages.error(request, 'Failed to update record. Please fill in all fields.')
+
+        return render(request, 'updateRecord.html', {'record': current_record})
+    else:
+        messages.error(request, 'You need to be logged in to update a record')
+        return redirect('home')

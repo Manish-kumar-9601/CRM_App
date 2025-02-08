@@ -1,0 +1,98 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+    
+<style>
+    html,
+body,
+.intro {
+  height: 100%;
+  object-fit: cover;
+}
+
+.bg-image-vertical {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+}
+</style>
+<section class="intro">
+    <div class=" h-100" style=" 
+            background-image: url(https://mdbootstrap.com/img/Photos/new-templates/search-box/img1.jpg);
+          ">
+      <div class="mask d-flex align-items-center h-100">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+              <div class="card" style="border-radius: 1rem;">
+                <div class="card-body p-5">
+  
+                  <h1 class="mb-5 text-center">Update User Form</h1>
+  
+                  <form method="post" >
+                    {% csrf_token %}
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row">
+                      <div class="col-12 col-md-6 mb-4">
+                        <div class="form-outline">
+                          <input type="text"  class="form-control" name="first_name" value={{record.first_name}} />
+                          <label class="form-label"  >First name</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 mb-4">
+                        <div class="form-outline">
+                          <input type="text" value={{record.last_name}}  class="form-control" name="last_name" />
+                          <label class="form-label"  >Last name</label>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <!-- Text input -->
+                    <div class="form-outline mb-4">
+                      <input type="text" i class="form-control" name="phone" value={{record.phone}} />
+                      <label class="form-label" >Phone No.</label>
+                    </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                      <input type="email" class="form-control" name="email" value={{record.email}} />
+                      <label class="form-label"  >Email</label>
+                    </div>
+  
+                    <!-- Text input -->
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" name="address" value={{record.address}} />
+                      <label class="form-label" >Address</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" name="country" value={{record.country}} />
+                      <label class="form-label" >Country</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" name="city" value={{record.city}} />
+                      <label class="form-label" >City</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" name="state"value={{record.state}} />
+                      <label class="form-label" >State</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" name="zipcode" value={{record.zipcode}} />
+                      <label class="form-label" >Zipcode</label>
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-success btn-rounded btn-block">Add In Record</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+{% endblock %}
