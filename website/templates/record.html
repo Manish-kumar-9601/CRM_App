@@ -1,0 +1,37 @@
+﻿{% if records %}
+<h2>Records..</h2>
+<section class="p-5" >
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Zipcode</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            <th scope="row">
+                <a href="{% url 'customer_record' record.id %}">
+                    {{record.id}}
+                </a>
+            </th>
+            <td>{{record.first_name}}</td>
+            <td>{{record.last_name}}</td>
+            <td>{{record.email}}</td>
+            <td>{{record.phone}}</td>
+            <td>{{record.zipcode}}</td>
+        </tr>
+        {% endfor %}
+        </tr>
+    </tbody>
+</table>
+</section>
+
+{% endif %}
